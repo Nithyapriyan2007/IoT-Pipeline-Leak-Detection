@@ -1,40 +1,118 @@
-# 💧 IoT Pipeline Leak Detection System
+# 💧 IoT Pipeline Leak Detection and Automatic Pump Control System
 
-An ESP32-based IoT system that detects water pipeline leakage by continuously monitoring inlet and outlet water flow rates. The system automatically switches OFF the water pump when a leak is detected and sends real-time alerts through Telegram.
+<p align="center">
+  <img src="images/project-banner.png" alt="IoT Pipeline Leak Detection System" width="850">
+</p>
 
-## 🚀 Features
+<p align="center">
+  **An ESP32-Based Smart Water Pipeline Monitoring and Automatic Leak Detection System**
+</p>
 
-- Real-time water flow monitoring
-- Dual flow sensor comparison (IN and OUT)
-- Automatic pipeline leak detection
-- Automatic pump shutdown during leakage
-- Telegram notifications
-- Live web dashboard
-- OLED display for local monitoring
-- HC-SR04 ultrasonic distance measurement
-- Buzzer and LED leak alerts
-- Wi-Fi connectivity and ESP32 access point
-- Five-reading moving average for flow smoothing
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-ESP32-blue">
+  <img src="https://img.shields.io/badge/Language-Embedded%20C%2B%2B-orange">
+  <img src="https://img.shields.io/badge/Technology-IoT-green">
+  <img src="https://img.shields.io/badge/Status-Working-success">
+</p>
 
-## 🛠️ Hardware Components
+---
 
-- ESP32 Development Board
-- 2 × Water Flow Sensors
-- Relay Module
-- DC Water Pump
-- HC-SR04 Ultrasonic Sensor
-- SSD1306 OLED Display (128 × 64)
-- Buzzer
-- LED
-- Connecting wires and power supply
+## 📌 1. Project Overview
 
-## 🔌 Pin Configuration
+The **IoT Pipeline Leak Detection and Automatic Pump Control System** is an intelligent water monitoring solution designed to detect water leakage in pipelines and prevent unnecessary water wastage.
+
+The system uses an ESP32 microcontroller and two water flow sensors to continuously monitor the amount of water entering and leaving a pipeline.
+
+By comparing the inlet and outlet flow rates, the system identifies abnormal differences that may indicate water leakage.
+
+When a leak is detected, the system automatically:
+
+- Switches OFF the water pump using a relay module.
+- Activates a buzzer and LED alert.
+- Sends a Telegram notification.
+- Updates the real-time web dashboard.
+- Displays system information on an OLED display.
+
+The system also includes an ultrasonic sensor for distance measurement and a standalone Wi-Fi dashboard for monitoring pipeline conditions.
+
+The main objective is to develop an affordable, intelligent and automated solution for water conservation and pipeline safety.
+
+## 🎯 2. Project Objectives
+
+- Detect water leakage in pipelines using flow sensors.
+- Continuously monitor inlet and outlet water flow.
+- Identify abnormal water flow differences.
+- Automatically stop the pump during confirmed leak conditions.
+- Notify users through Telegram.
+- Provide real-time monitoring through a web dashboard.
+- Reduce water wastage and prevent pipeline-related damage.
+
+---
+
+## 🎥 3. Project Demonstration Videos
+
+All actual project demonstration videos are available in the Google Drive folder.
+
+<p align="center">
+  <a href="https://drive.google.com/drive/folders/1Updicv8YqDgGjnRrCW3GSF81BxVvA55p">
+    <b>▶ WATCH PROJECT DEMONSTRATION VIDEOS</b>
+  </a>
+</p>
+
+**Video demonstrations may include:**
+
+- Complete project working.
+- Normal water flow monitoring.
+- Pipeline leak detection.
+- Automatic pump shutdown.
+- Telegram alert notification.
+- Real-time web dashboard.
+
+📂 **[Open Project Videos – Google Drive](https://drive.google.com/drive/folders/1Updicv8YqDgGjnRrCW3GSF81BxVvA55p)**
+
+---
+
+## 📸 4. Project Photos and Prototype
+
+Actual project photographs, hardware setup and prototype images are available in the Google Drive folder.
+
+<p align="center">
+  <a href="https://drive.google.com/drive/folders/1Updicv8YqDgGjnRrCW3GSF81BxVvA55p">
+    <b>📷 VIEW PROJECT PHOTOS AND HARDWARE SETUP</b>
+  </a>
+</p>
+
+📂 **[Open Project Photos – Google Drive](https://drive.google.com/drive/folders/1Updicv8YqDgGjnRrCW3GSF81BxVvA55p)**
+
+---
+
+## ⚙️ 5. Hardware Components
+
+| Component | Function |
+|---|---|
+| ESP32 Development Board | Main microcontroller |
+| Water Flow Sensor 1 | Measures inlet water flow |
+| Water Flow Sensor 2 | Measures outlet water flow |
+| Relay Module | Controls the water pump |
+| Water Pump | Pumps water through the pipeline |
+| HC-SR04 Ultrasonic Sensor | Measures distance |
+| SSD1306 OLED Display | Displays system information |
+| Buzzer | Provides audible alerts |
+| LED | Provides visual alerts |
+| Power Supply | Powers the electronic system |
+| Connecting Wires | Hardware connections |
+
+---
+
+## 🔌 6. GPIO Pin Connections
+
+The following table shows the ESP32 pin configuration used in the project.
 
 | Component | ESP32 GPIO |
-|---|---|
-| Flow Sensor IN | GPIO 25 |
-| Flow Sensor OUT | GPIO 26 |
-| Relay | GPIO 27 |
+|---|---:|
+| Inlet Flow Sensor | GPIO 25 |
+| Outlet Flow Sensor | GPIO 26 |
+| Relay Module | GPIO 27 |
 | Buzzer | GPIO 14 |
 | LED | GPIO 2 |
 | Ultrasonic TRIG | GPIO 32 |
@@ -42,76 +120,290 @@ An ESP32-based IoT system that detects water pipeline leakage by continuously mo
 | OLED SDA | GPIO 21 |
 | OLED SCL | GPIO 22 |
 
-**Important:** HC-SR04 ECHO must be connected through a voltage divider before connecting to ESP32 GPIO 33.
+**Important Hardware Note:**
 
-## ⚙️ Leak Detection Logic
-
-- Flow readings are calculated every second.
-- A five-reading moving average reduces measurement fluctuations.
-- The system calculates the difference between inlet and outlet flow.
-- Minimum inlet flow required: 1.00 L/min.
-- Leak threshold: 0.70 L/min.
-- Leak confirmation: 2 consecutive readings.
-- Startup grace period: 10 seconds.
-
-When a leak is confirmed:
-1. The pump automatically switches OFF.
-2. The buzzer and LED turn ON.
-3. The OLED displays leak status.
-4. Telegram sends a leak alert.
-5. The web dashboard displays the leak condition.
-
-## 📱 Monitoring
-
-The system provides two monitoring methods:
-
-**OLED Display:** Displays inlet flow, outlet flow, difference, ultrasonic distance and system status.
-
-**Web Dashboard:** Displays live flow readings, leak status, pump status, Wi-Fi status and Telegram connection status.
-
-ESP32 Access Point:
-- SSID: `Pipeline-ESP32`
-- Password: `12345678`
-- Dashboard: `http://192.168.4.1`
-
-## 📚 Software Requirements
-
-- Arduino IDE
-- ESP32 Board Package
-- Adafruit GFX Library
-- Adafruit SSD1306 Library
-- Wi-Fi and HTTPClient libraries included with ESP32 Arduino Core
-
-## 🔧 Installation
-
-1. Install Arduino IDE.
-2. Install the ESP32 board package.
-3. Install the required Adafruit libraries.
-4. Open `IoT-Pipeline-Leak-Detection.ino`.
-5. Configure Wi-Fi credentials and Telegram bot settings.
-6. Select your ESP32 board and COM port.
-7. Upload the program.
-8. Connect to the ESP32 access point or configured Wi-Fi network.
-9. Open the dashboard in your browser.
-
-## 🔐 Security Note
-
-Do not publish real Wi-Fi passwords, Telegram bot tokens or private credentials in public repositories.
-
-## 🔮 Future Improvements
-
-- Machine learning-based leak prediction
-- Cloud-based data storage
-- Historical flow analysis
-- Advanced analytics dashboard
-- Remote pump control
-
-## 👨‍💻 Developer
-
-**Nithyapriyan R.**
-
-GitHub: [@Nithyapriyan2007](https://github.com/Nithyapriyan2007)
+The HC-SR04 ultrasonic sensor's ECHO output is typically 5V. Use a suitable voltage divider to reduce the signal before connecting it to the ESP32 GPIO33 pin.
 
 ---
 
-⭐ If you find this project useful, consider giving the repository a star!
+## 🧠 7. Working Principle
+
+The system operates by continuously monitoring the water flow at two points in the pipeline.
+
+### Step 1 – Inlet Water Flow Measurement
+
+The first flow sensor measures the quantity of water entering the pipeline.
+
+### Step 2 – Outlet Water Flow Measurement
+
+The second flow sensor measures the quantity of water leaving the pipeline.
+
+### Step 3 – Flow Rate Calculation
+
+The ESP32 calculates the inlet and outlet flow rates using pulses generated by the flow sensors.
+
+### Step 4 – Flow Difference Analysis
+
+The system compares the inlet and outlet flow rates to identify abnormal differences.
+
+### Step 5 – Leak Detection
+
+The calculated flow difference is compared with the configured leak threshold. A moving average is used to reduce sudden fluctuations.
+
+### Step 6 – Automatic Pump Shutdown
+
+When the leak condition is confirmed through consecutive readings, the ESP32 switches OFF the water pump using the relay module.
+
+### Step 7 – Alert Notification
+
+The buzzer and LED are activated, and a Telegram notification is sent to the user.
+
+### Step 8 – Real-Time Monitoring
+
+The OLED display and web dashboard provide information about the pipeline's current operating condition.
+
+---
+
+## 📊 8. Leak Detection Algorithm
+
+The system uses flow comparison and consecutive-reading verification to identify possible pipeline leakage.
+
+### Configuration Parameters
+
+| Parameter | Configured Value |
+|---|---:|
+| Pulses per litre | 450 |
+| Leak threshold | 0.70 L/min |
+| Minimum inlet flow | 1.00 L/min |
+| Consecutive readings for detection | 2 |
+| Moving average window | 5 readings |
+| Flow calculation interval | 1 second |
+| Startup grace period | 10 seconds |
+| Minimum pulse interval | 5000 µs |
+
+### Leak Detection Conditions
+
+1. Both flow sensors continuously measure water flow.
+2. The ESP32 calculates the inlet and outlet flow rates.
+3. A five-reading moving average helps reduce measurement fluctuations.
+4. The flow difference is evaluated against the leak threshold.
+5. The minimum inlet flow condition is considered.
+6. The leak condition must be detected in two consecutive readings.
+7. Once confirmed, the system switches OFF the pump and activates alerts.
+
+The startup grace period helps avoid false leak detection during initial system operation.
+
+---
+
+## 🌐 9. ESP32 Web Dashboard
+
+The project includes a real-time web dashboard hosted directly on the ESP32.
+
+The ESP32 creates its own Wi-Fi access point, allowing users to connect directly without requiring an external Wi-Fi router for local dashboard access.
+
+### Wi-Fi Configuration
+
+| Setting | Value |
+|---|---|
+| Wi-Fi SSID | Pipeline-ESP32 |
+| Password | 12345678 |
+| Dashboard IP | 192.168.4.1 |
+
+### Dashboard Access
+
+1. Turn ON the ESP32.
+2. Open Wi-Fi settings on your phone or laptop.
+3. Connect to `Pipeline-ESP32`.
+4. Enter the password `12345678`.
+5. Open a browser.
+6. Visit `http://192.168.4.1`.
+
+### Dashboard Features
+
+- Inlet water flow monitoring.
+- Outlet water flow monitoring.
+- Flow difference monitoring.
+- Ultrasonic distance measurement.
+- Leak distance information.
+- Pump ON/OFF status.
+- Leak detection status.
+- Wi-Fi connection status.
+- Telegram connection status.
+- Manual dashboard reset functionality.
+
+The dashboard also provides a `/data` endpoint for JSON monitoring and a `/reset` endpoint.
+
+---
+
+## 📱 10. Telegram Notification System
+
+The system integrates the Telegram Bot API to notify users about important pipeline events.
+
+When a leak is confirmed, the ESP32 sends a Telegram message to the configured chat.
+
+### Notification Features
+
+- Leak detection notification.
+- Automatic pump shutdown notification.
+- Pipeline monitoring status.
+
+This feature allows users to receive important alerts remotely without continuously checking the dashboard.
+
+---
+
+## 🖥️ 11. OLED Display
+
+An SSD1306 OLED display is connected to the ESP32 through the I2C interface.
+
+The display provides local system information, allowing users to monitor the project directly from the hardware setup.
+
+**OLED Connections:**
+
+- SDA – GPIO 21
+- SCL – GPIO 22
+- Power – 3.3V
+- I2C Address – 0x3C
+
+---
+
+## 🔔 12. Alert and Safety Mechanism
+
+The system includes multiple alert mechanisms.
+
+| Alert Component | Action |
+|---|---|
+| Relay Module | Switches OFF the pump |
+| Buzzer | Produces an audible alert |
+| LED | Provides a visual alert |
+| Telegram | Sends remote notification |
+| Web Dashboard | Updates leak status |
+| OLED Display | Shows local system information |
+
+The relay module uses active-low control:
+
+- LOW – Pump ON
+- HIGH – Pump OFF
+
+---
+
+## 💻 13. Software and Technologies
+
+| Technology | Purpose |
+|---|---|
+| Embedded C/C++ | ESP32 programming |
+| Arduino IDE | Development environment |
+| ESP32 | Main controller |
+| Wi-Fi | Wireless dashboard access |
+| HTML | Dashboard structure |
+| CSS | Dashboard styling |
+| JavaScript | Dashboard functionality |
+| Telegram Bot API | Remote notifications |
+| HTTP Web Server | Dashboard communication |
+| SSD1306 Library | OLED display control |
+
+---
+
+## 🚀 14. Installation and Setup
+
+### Requirements
+
+- ESP32 development board.
+- Arduino IDE.
+- Two water flow sensors.
+- Relay module.
+- Water pump.
+- HC-SR04 ultrasonic sensor.
+- SSD1306 OLED display.
+- Buzzer and LED.
+- Required connecting wires and power supply.
+
+### Software Installation
+
+1. Download and install Arduino IDE.
+2. Install ESP32 board support.
+3. Install the required Arduino libraries.
+4. Clone or download this GitHub repository.
+5. Open the ESP32 `.ino` file.
+6. Configure your Telegram bot credentials.
+7. Connect the hardware according to the GPIO table.
+8. Select the appropriate ESP32 board and COM port.
+9. Upload the program to the ESP32.
+10. Connect to the ESP32 Wi-Fi access point.
+11. Open the dashboard at `http://192.168.4.1`.
+
+### Security Note
+
+Do not upload actual Telegram bot tokens, Wi-Fi passwords or private credentials to a public GitHub repository. Use placeholders in the published source code.
+
+---
+
+## 📁 15. Project Structure
+
+```text
+IoT-Pipeline-Leak-Detection/
+│
+├── images/
+│   ├── project-banner.png
+│   ├── project-setup.jpg
+│   ├── esp32-circuit.jpg
+│   ├── pipeline-setup.jpg
+│   ├── dashboard.png
+│   ├── telegram-alert.jpg
+│   └── oled-display.jpg
+│
+├── IoT_Pipeline_Leak_Detection.ino
+│
+└── README.md
+```
+
+The project photos and demonstration videos are currently available through the Google Drive media gallery linked above.
+
+---
+
+## 🌟 16. Key Features
+
+- Real-time inlet and outlet water flow monitoring.
+- Automatic pipeline leak detection.
+- Automatic water pump shutdown.
+- Flow difference analysis.
+- Moving average-based measurement smoothing.
+- Consecutive-reading leak verification.
+- Telegram alert notifications.
+- ESP32-hosted real-time web dashboard.
+- OLED-based local monitoring.
+- Buzzer and LED alert system.
+- Ultrasonic distance measurement.
+- Standalone Wi-Fi access point.
+
+---
+
+## 🔮 17. Future Improvements
+
+- Machine learning-based leak prediction.
+- Historical water consumption analysis.
+- Cloud-based data storage.
+- Mobile application integration.
+- Advanced pipeline condition monitoring.
+- Data analytics and leak trend analysis.
+
+---
+
+## 👨‍💻 18. Developer
+
+**Project:** IoT Pipeline Leak Detection and Automatic Pump Control System
+
+**Domain:** Internet of Things (IoT), Embedded Systems and Automation
+
+**GitHub Repository:**
+
+[IoT Pipeline Leak Detection – GitHub](https://github.com/Nithyapriyan2007/IoT-Pipeline-Leak-Detection)
+
+**Project Media:**
+
+[Photos and Demonstration Videos – Google Drive](https://drive.google.com/drive/folders/1Updicv8YqDgGjnRrCW3GSF81BxVvA55p)
+
+---
+
+<p align="center">
+  **💧 Smart Monitoring | Early Leak Detection | Automatic Protection | Water Conservation**
+</p>
